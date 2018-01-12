@@ -1,0 +1,21 @@
+{
+  "name": "快递管理系统后台",
+  "version": "0.0.1",
+  "description": "",
+  "devDependencies": {
+  	"jwt-simple": "^0.5.1",
+  	"restify-cors-middleware": "^1.1.0"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --open",
+    "watch": "webpack --watch",
+    "build": "webpack"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "^2.0.0",
+    "mysql2": "^1.0.0",
+    "restify": "^5.0.0",
+    "sequelize": "^4.0.0"
+  }
+}
