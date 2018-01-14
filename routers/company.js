@@ -1,18 +1,9 @@
-const site = require("../models/model").site;
+const company = require("../models/model").company;
 
-const getSiteObj = (data) => {
+const getCompanyObj = (data) => {
 	return {
 		name: data.name,
-		address: data.address,
-		province: data.province,
-		city: data.city,
-		area: data.area,
-		territory: data.territory,
-		contactName: data.contactName,
-		contactNickname: data.contactNickname,
-		contactPhone: data.contactPhone,
-		contactWechat: data.contactWechat,
-		contactHometown: data.contactHometown,
+		code: data.code,
 		remarks: data.remarks 
 	}
 }
@@ -20,15 +11,15 @@ const getSiteObj = (data) => {
 /*
 添加站点
  */
-function addSite() {
+function addCompany() {
 	this.exec = (route, req, res) => {
 		add(req, res);
 	}
 }
 
 const add = (req, res) => {
-	let siteObj = getSiteObj(req.body);
-	site.create(siteObj).then(result => {
+	let companyObj = getCompanyObj(req.body);
+	company.create(companyObj).then(result => {
 		res.send({isSuccess:true, result: result})
 	});
 }
@@ -36,7 +27,7 @@ const add = (req, res) => {
 /*
 获取站点列表
  */
-function getSite() {
+function getCompany() {
 	this.exec = (route, req, res) => {
 		list(req, res);
 	}
@@ -49,7 +40,12 @@ const list = (req, res) => {
 			$like: '%' + req.body.name + '%'
 		}
 	}
-	site.findAll({
+	if(req.body && req.body.code) {
+		params.code = {
+			$like: '%' + req.body.code + '%'
+		}
+	}
+	company.findAll({
 		where: params
 	}).then(result => {
 		res.send({isSuccess:true, result: result})
@@ -59,14 +55,14 @@ const list = (req, res) => {
 /*
 删除站点
  */
-function delSite() {
+function delCompany() {
 	this.exec = (route, req, res) => {
 		del(req, res);
 	}
 }
 
 const del = (req, res) => {
-	site.destroy({
+	company.destroy({
 		where: {
 			id: req.body.id
 		}
@@ -78,15 +74,15 @@ const del = (req, res) => {
 /*
 编辑站点
  */
-function updateSite() {
+function updateCompany() {
 	this.exec = (route, req, res) => {
 		update(req, res);
 	}
 }
 
 const update = (req, res) => {
-	let siteObj = getSiteObj(req.body);
-	site.update(siteObj, {
+	let companyObj = getCompanyObj(req.body);
+	company.update(companyObj, {
 		where: {
 			id: req.body.id
 		}
@@ -101,8 +97,8 @@ const update = (req, res) => {
 
 
 module.exports = {
-	addSite: new addSite(),
-	getSite: new getSite(),
-	delSite: new delSite(),
-	updateSite: new updateSite()
+	addCompany: new addCompany(),
+	getCompany: new getCompany(),
+	delCompany: new delCompany(),
+	updateCompany: new updateCompany()
 }
