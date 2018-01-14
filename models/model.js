@@ -9,6 +9,31 @@ const user = sequelize.define('user', {
 	remarks: Sequelize.STRING
 });
 
+//站点信息
+const site = sequelize.define('site', {
+	name: Sequelize.STRING,
+	address: Sequelize.STRING,
+	province: Sequelize.STRING,
+	city: Sequelize.STRING,
+	area: Sequelize.STRING,
+	territory: Sequelize.STRING,
+	contactName: Sequelize.STRING,
+	contactNickname: Sequelize.STRING,
+	contactPhone: Sequelize.STRING,
+	contactWechat: Sequelize.STRING,
+	contactHometown: Sequelize.STRING,
+	remarks: Sequelize.STRING
+});
+
+//快递公司
+const company = sequelize.define('company', {
+	name: Sequelize.STRING,
+	code: Sequelize.STRING,
+	remarks: Sequelize.STRING
+});
+
 module.exports = {
-	user: user
+	user: user,
+	site: site,
+	company: company 
 };
