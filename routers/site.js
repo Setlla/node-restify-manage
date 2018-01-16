@@ -2,6 +2,7 @@ const site = require("../models/model").site;
 
 const getSiteObj = (data) => {
 	return {
+		id: data.id || null,
 		name: data.name,
 		address: data.address,
 		province: data.province,
@@ -13,24 +14,36 @@ const getSiteObj = (data) => {
 		contactPhone: data.contactPhone,
 		contactWechat: data.contactWechat,
 		contactHometown: data.contactHometown,
-		remarks: data.remarks 
+		remarks: data.remarks
 	}
 }
 
 /*
 添加站点
  */
-function addSite() {
+function addUpdateSite() {
 	this.exec = (route, req, res) => {
 		add(req, res);
 	}
 }
 
-const add = (req, res) => {
+async function add(req, res) {
 	let siteObj = getSiteObj(req.body);
-	site.create(siteObj).then(result => {
-		res.send({isSuccess:true, result: result})
+	const _site = await site.findOrCreate({
+		where: {
+			id: req.body.id,
+		},
+		defaults: siteObj
 	});
+	
+	if(_site[1]) {
+		res.send({
+			isSuccess: true,
+			result: _site
+		});
+	} else {
+		update(siteObj, res);
+	}
 }
 
 /*
@@ -44,15 +57,25 @@ function getSite() {
 
 const list = (req, res) => {
 	let params = {};
-	if(req.body && req.body.name) {
-		params.name = {
-			$like: '%' + req.body.name + '%'
+	let data = req.body;
+	if(data) {
+		if(data.name) {
+			params.name = {
+				$like: '%' + data.name + '%'
+			}
+		}
+		if(data.id) {
+			params.id = data.id
 		}
 	}
+
 	site.findAll({
 		where: params
 	}).then(result => {
-		res.send({isSuccess:true, result: result})
+		res.send({
+			isSuccess: true,
+			result: result
+		})
 	})
 }
 
@@ -71,38 +94,31 @@ const del = (req, res) => {
 			id: req.body.id
 		}
 	}).then(result => {
-		res.send({isSuccess:true, result: result})
+		res.send({
+			isSuccess: true,
+			result: result
+		})
 	})
 }
 
 /*
 编辑站点
  */
-function updateSite() {
-	this.exec = (route, req, res) => {
-		update(req, res);
-	}
-}
-
-const update = (req, res) => {
-	let siteObj = getSiteObj(req.body);
+const update = (siteObj, res) => {
 	site.update(siteObj, {
 		where: {
-			id: req.body.id
+			id: siteObj.id
 		}
 	}).then(result => {
 		res.send({
 			isSuccess: true,
 			result: result
-		});
-	});
+		})
+	})
 }
 
-
-
 module.exports = {
-	addSite: new addSite(),
+	addUpdateSite: new addUpdateSite(),
 	getSite: new getSite(),
-	delSite: new delSite(),
-	updateSite: new updateSite()
+	delSite: new delSite()
 }
