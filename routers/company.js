@@ -2,6 +2,7 @@ const company = require("../models/model").company;
 
 const getCompanyObj = (data) => {
 	return {
+		id: data.id || null,
 		name: data.name,
 		code: data.code,
 		remarks: data.remarks 
@@ -11,17 +12,30 @@ const getCompanyObj = (data) => {
 /*
 添加站点
  */
-function addCompany() {
+function addUpdateCompany() {
 	this.exec = (route, req, res) => {
 		add(req, res);
 	}
 }
 
-const add = (req, res) => {
+async function add(req, res) {
 	let companyObj = getCompanyObj(req.body);
-	company.create(companyObj).then(result => {
-		res.send({isSuccess:true, result: result})
+	
+	const _company = await site.findOrCreate({
+		where: {
+			id: companyObj.id,
+		},
+		defaults: companyObj
 	});
+	
+	if(_company[1]) {
+		res.send({
+			isSuccess: true,
+			result: _company
+		});
+	} else {
+		update(companyObj, res);
+	}
 }
 
 /*
@@ -74,17 +88,10 @@ const del = (req, res) => {
 /*
 编辑站点
  */
-function updateCompany() {
-	this.exec = (route, req, res) => {
-		update(req, res);
-	}
-}
-
-const update = (req, res) => {
-	let companyObj = getCompanyObj(req.body);
+const update = (companyObj, res) => {
 	company.update(companyObj, {
 		where: {
-			id: req.body.id
+			id: companyObj.id
 		}
 	}).then(result => {
 		res.send({
@@ -97,8 +104,7 @@ const update = (req, res) => {
 
 
 module.exports = {
-	addCompany: new addCompany(),
+	addUpdateCompany: new addUpdateCompany(),
 	getCompany: new getCompany(),
-	delCompany: new delCompany(),
-	updateCompany: new updateCompany()
+	delCompany: new delCompany()
 }

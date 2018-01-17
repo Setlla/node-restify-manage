@@ -8,9 +8,8 @@ router.addRoute('/getSite', require('./routers/site').getSite);
 router.addRoute('/delSite', require('./routers/site').delSite);
 
 //快递公司
-router.addRoute('/addCompany', require('./routers/company').addCompany);
+router.addRoute('/addUpdateCompany', require('./routers/company').addUpdateCompany);
 router.addRoute('/getCompany', require('./routers/company').getCompany);
 router.addRoute('/delCompany', require('./routers/company').delCompany);
-router.addRoute('/updateCompany', require('./routers/company').updateCompany);
 
 module.exports = router;

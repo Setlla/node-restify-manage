@@ -31,7 +31,7 @@ async function add(req, res) {
 	let siteObj = getSiteObj(req.body);
 	const _site = await site.findOrCreate({
 		where: {
-			id: req.body.id,
+			id: siteObj.id,
 		},
 		defaults: siteObj
 	});
