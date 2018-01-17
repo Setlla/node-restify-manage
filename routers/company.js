@@ -21,7 +21,7 @@ function addUpdateCompany() {
 async function add(req, res) {
 	let companyObj = getCompanyObj(req.body);
 	
-	const _company = await site.findOrCreate({
+	const _company = await company.findOrCreate({
 		where: {
 			id: companyObj.id,
 		},
@@ -49,16 +49,21 @@ function getCompany() {
 
 const list = (req, res) => {
 	let params = {};
-	if(req.body && req.body.name) {
-		params.name = {
-			$like: '%' + req.body.name + '%'
+	
+	let data = req.body;
+	if(data) {
+		if(data.name) {
+			params.name = {
+				$like: '%' + data.name + '%'
+			}
+		}
+		if(data.code) {
+			params.code = {
+				$like: '%' + data.code + '%'
+			}
 		}
 	}
-	if(req.body && req.body.code) {
-		params.code = {
-			$like: '%' + req.body.code + '%'
-		}
-	}
+	
 	company.findAll({
 		where: params
 	}).then(result => {

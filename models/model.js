@@ -32,8 +32,24 @@ const company = sequelize.define('company', {
 	remarks: Sequelize.STRING
 });
 
+//快递员
+const courier = sequelize.define('courier', {
+	userID: Sequelize.INTEGER,
+	name: Sequelize.STRING,
+	nickName: Sequelize.STRING,
+	phone: Sequelize.STRING,
+	wechat: Sequelize.STRING,
+	hometown: Sequelize.STRING,
+	province: Sequelize.STRING,
+	city: Sequelize.STRING,
+	area: Sequelize.STRING,
+	siteID: Sequelize.INTEGER,
+	remarks: Sequelize.STRING
+});
+
 module.exports = {
 	user: user,
 	site: site,
-	company: company 
+	company: company ,
+	courier: courier
 };

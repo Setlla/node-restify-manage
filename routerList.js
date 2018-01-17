@@ -12,4 +12,9 @@ router.addRoute('/addUpdateCompany', require('./routers/company').addUpdateCompa
 router.addRoute('/getCompany', require('./routers/company').getCompany);
 router.addRoute('/delCompany', require('./routers/company').delCompany);
 
+//快递员
+router.addRoute('/addUpdateCourier', require('./routers/courier').addUpdateCourier);
+router.addRoute('/getCourier', require('./routers/courier').getCourier);
+router.addRoute('/delCourier', require('./routers/courier').delCourier);
+
 module.exports = router;
