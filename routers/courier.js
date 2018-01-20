@@ -3,7 +3,7 @@ const courier = require("../models/model").courier;
 const getCourierObj = (data) => {
 	return {
 		id: data.id || null,
-		userID: data.userID,
+		userID: data.userID || null,
 		name: data.name,
 		nickName: data.nickName,
 		phone: data.phone,
@@ -12,7 +12,7 @@ const getCourierObj = (data) => {
 		province: data.province,
 		city: data.city,
 		area: data.area,
-		siteID: data.siteID,
+		siteID: data.siteID || null,
 		remarks: data.remarks
 	}
 }
@@ -39,7 +39,7 @@ async function add(req, res) {
 	if(_courier[1]) {
 		res.send({
 			isSuccess: true,
-			result: _Courier
+			result: _courier
 		});
 	} else {
 		update(courierObj, res);
@@ -67,6 +67,9 @@ const list = (req, res) => {
 		}
 		if(data.siteID) {
 			params.siteID = data.siteID
+		}
+		if(data.id) {
+			params.id = data.id
 		}
 	}
 	
