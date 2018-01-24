@@ -28,7 +28,7 @@ async function add(req, res) {
 		defaults: companyObj
 	});
 	
-	if(_company[1]) {
+	if(!_company[0]) {
 		res.send({
 			isSuccess: true,
 			result: _company

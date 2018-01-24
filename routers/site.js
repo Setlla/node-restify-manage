@@ -36,7 +36,7 @@ async function add(req, res) {
 		defaults: siteObj
 	});
 	
-	if(_site[1]) {
+	if(!_site[0]) {
 		res.send({
 			isSuccess: true,
 			result: _site

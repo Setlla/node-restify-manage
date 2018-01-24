@@ -36,7 +36,7 @@ async function add(req, res) {
 		defaults: courierObj
 	});
 	
-	if(_courier[1]) {
+	if(!_courier[0]) {
 		res.send({
 			isSuccess: true,
 			result: _courier

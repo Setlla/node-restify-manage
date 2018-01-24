@@ -17,4 +17,10 @@ router.addRoute('/addUpdateCourier', require('./routers/courier').addUpdateCouri
 router.addRoute('/getCourier', require('./routers/courier').getCourier);
 router.addRoute('/delCourier', require('./routers/courier').delCourier);
 
+//客户
+router.addRoute('/addUpdateCustomer', require('./routers/customer').addUpdateCustomer);
+router.addRoute('/getCustomer', require('./routers/customer').getCustomer);
+router.addRoute('/delCustomer', require('./routers/customer').delCustomer);
+
+
 module.exports = router;
