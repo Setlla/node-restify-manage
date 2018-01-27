@@ -22,5 +22,7 @@ router.addRoute('/addUpdateCustomer', require('./routers/customer').addUpdateCus
 router.addRoute('/getCustomer', require('./routers/customer').getCustomer);
 router.addRoute('/delCustomer', require('./routers/customer').delCustomer);
 
+//快递详情
+router.addRoute('/getListExpressDetail', require('./routers/express').getListExpressDetail);
 
 module.exports = router;

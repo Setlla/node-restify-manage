@@ -63,8 +63,53 @@ const customer = sequelize.define('customer', {
 	city: Sequelize.STRING,
 	area: Sequelize.STRING,
 	chargeTime: Sequelize.DATE,
-	balance: Sequelize.FLOAT,
+	balance: Sequelize.STRING,
 	remarks: Sequelize.STRING
+});
+
+//快递信息
+const express = sequelize.define('express', {
+	number: Sequelize.STRING,
+	customerID: Sequelize.INTEGER,
+	companyID: Sequelize.INTEGER,
+	courierID: Sequelize.INTEGER,
+	siteID: Sequelize.INTEGER,
+	state: Sequelize.STRING,
+	receiverName: Sequelize.STRING,	
+	remarks: Sequelize.STRING
+});
+
+//快递详细信息
+const expressDetail = sequelize.define('expressDetail', {
+	number: Sequelize.STRING,
+	customerID: Sequelize.INTEGER,
+	companyID: Sequelize.INTEGER,
+	courierID: Sequelize.INTEGER,
+	siteID: Sequelize.INTEGER,
+	state: Sequelize.STRING,
+	receiverName: Sequelize.STRING,	
+	remarks: Sequelize.STRING,
+	courierName: Sequelize.STRING,
+	courierNickName: Sequelize.STRING,
+	courierPhone: Sequelize.STRING,
+	courierWechat: Sequelize.STRING,
+	courierHometown: Sequelize.STRING,
+	companyName: Sequelize.STRING,
+	siteName: Sequelize.STRING,
+	siteAddress: Sequelize.STRING,
+	siteTerritory: Sequelize.STRING,
+	contactName: Sequelize.STRING,
+	contactPhone: Sequelize.STRING,
+	contactWechat: Sequelize.STRING,
+	contactNickname: Sequelize.STRING,
+	contactHometown: Sequelize.STRING,
+	customeName: Sequelize.STRING,
+	customerMPhone: Sequelize.STRING,
+	customerPhone: Sequelize.STRING,
+	customerWechat: Sequelize.STRING,
+	customerGrade: Sequelize.STRING,
+	balance: Sequelize.STRING,
+	chargeTime: Sequelize.DATE
 });
 
 
@@ -73,5 +118,7 @@ module.exports = {
 	site: site,
 	company: company,
 	courier: courier,
-	customer: customer
+	customer: customer,
+	express: express,
+	expressDetail: expressDetail
 };
