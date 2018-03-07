@@ -24,5 +24,8 @@ router.addRoute('/delCustomer', require('./routers/customer').delCustomer);
 
 //快递详情
 router.addRoute('/getListExpressDetail', require('./routers/express').getListExpressDetail);
+router.addRoute('/addExpress', require('./routers/express').addExpress);
+
+router.addRoute('/getComputerByNum', require('./services/kdniaoUtil').getComputerByNum);
 
 module.exports = router;

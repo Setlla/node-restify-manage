@@ -36,7 +36,7 @@ const company = sequelize.define('company', {
 const courier = sequelize.define('courier', {
 	userID: Sequelize.INTEGER,
 	name: Sequelize.STRING,
-	nickName: Sequelize.STRING,
+	nickName: Sequelize.STRING, 
 	phone: Sequelize.STRING,
 	wechat: Sequelize.STRING,
 	hometown: Sequelize.STRING,

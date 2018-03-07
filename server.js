@@ -6,7 +6,7 @@ const corsMiddleware = require('restify-cors-middleware');
 const router = require("./routerList.js");
 
 const onListened = () => {
-	console.log('Node server starts at 8000.');
+	console.log('Node server starts at 80.');
 }
 
 const onConnected = (req, res) => {
@@ -27,4 +27,4 @@ server.use(restify.plugins.bodyParser());
 
 server.post(/^\/(.*)/, onConnected);
 
-server.listen(8000, onListened);
+server.listen(80);

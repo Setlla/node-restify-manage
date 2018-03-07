@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "description": "",
   "devDependencies": {
-  	"jwt-simple": "^0.5.1",
-  	"restify-cors-middleware": "^1.1.0"
+    "crypto": "^1.0.1",
+    "jwt-simple": "^0.5.1",
+    "restify-cors-middleware": "^1.1.0"
   },
   "scripts": {
     "start": "webpack-dev-server --open",
@@ -16,6 +17,7 @@
     "mysql": "^2.0.0",
     "mysql2": "^1.0.0",
     "restify": "^5.0.0",
-    "sequelize": "^4.0.0"
+    "sequelize": "^4.0.0",
+    "axios": "^0.17.1"
   }
 }
