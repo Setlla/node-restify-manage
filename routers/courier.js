@@ -18,7 +18,6 @@ const getCourierObj = (data) => {
 	}
 }
 
-
 /*
 添加快递员
  */
@@ -30,9 +29,9 @@ function addCourierByWechat() {
 
 async function add(req, res) {
 	var data = req.body;
-	
+
 	var objData = await getWechatLogin(data.code);
-	
+
 	if(!objData) {
 		res.send({
 			isSuccess: false,
@@ -45,14 +44,14 @@ async function add(req, res) {
 		objData.siteID = data.siteID;
 		objData.phone = data.phone;
 	}
-	
+
 	let result = await courier.findOrCreate({
 		where: {
 			openid: objData.openid,
 		},
 		defaults: objData
 	});
-		
+
 	if(result[1]) {
 		result = result[0].dataValues;
 		var obj = {
@@ -73,6 +72,54 @@ async function add(req, res) {
 		update(objData, res);
 	}
 
+}
+
+/**
+ * 快递员是否已注册
+ */
+function isRegisterCourier() {
+	this.exec = (route, req, res) => {
+		isRegister(req, res);
+	}
+}
+
+async function isRegister(req, res) {
+	var data = req.body;
+
+	var objData = await getWechatLogin(data.code);
+
+	if(!objData) {
+		res.send({
+			isSuccess: false,
+			result: 'code无效'
+		});
+		return;
+	}
+
+	courier.findAll({
+		where: {
+			openid: objData.openid
+		}
+	}).then(result => {
+		if(result[0].dataValues) {
+			result = result[0].dataValues;
+			var obj = {
+				id: result.id,
+				name: result.name,
+				loginKey: result.loginKey,
+				siteID: result.siteID
+			}
+			res.send({
+				isRegister: true,
+				result: obj
+			})
+		}else {
+			res.send({
+				isRegister: false,
+				result: ''
+			})
+		}
+	})
 }
 
 /*
@@ -115,7 +162,7 @@ function getCourier() {
 
 const list = (req, res) => {
 	let params = {};
-	
+
 	let data = req.body;
 	if(data) {
 		if(data.name) {
@@ -130,11 +177,14 @@ const list = (req, res) => {
 			params.id = data.id
 		}
 	}
-	
+
 	courier.findAll({
 		where: params
 	}).then(result => {
-		res.send({isSuccess:true, result: result})
+		res.send({
+			isSuccess: true,
+			result: result
+		})
 	})
 }
 
@@ -153,14 +203,17 @@ const del = (req, res) => {
 			id: req.body.id
 		}
 	}).then(result => {
-		res.send({isSuccess:true, result: result})
+		res.send({
+			isSuccess: true,
+			result: result
+		})
 	})
 }
-
 
 module.exports = {
 	updateCourier: new updateCourier(),
 	getCourier: new getCourier(),
 	delCourier: new delCourier(),
-	addCourierByWechat: new addCourierByWechat()
+	addCourierByWechat: new addCourierByWechat(),
+	isRegisterCourier: new isRegisterCourier()
 }

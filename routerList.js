@@ -12,8 +12,11 @@ router.addRoute('/addUpdateCompany', require('./routers/company').addUpdateCompa
 router.addRoute('/getCompany', require('./routers/company').getCompany);
 router.addRoute('/delCompany', require('./routers/company').delCompany);
 
-//快递员
+//快递员（小程序）
 router.addRoute('/addCourierByWechat', require('./routers/courier').addCourierByWechat);
+router.addRoute('/isRegisterCourier', require('./routers/courier').isRegisterCourier);
+
+//快递员（管理系统）
 router.addRoute('/updateCourier', require('./routers/courier').updateCourier);
 router.addRoute('/getCourier', require('./routers/courier').getCourier);
 router.addRoute('/delCourier', require('./routers/courier').delCourier);
