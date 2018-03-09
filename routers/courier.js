@@ -1,4 +1,5 @@
 const courier = require("../models/model").courier;
+const getWechatLogin = require("../services/wechatUtil").getWechatLogin;
 
 const getCourierObj = (data) => {
 	return {
@@ -17,33 +18,90 @@ const getCourierObj = (data) => {
 	}
 }
 
+
 /*
 添加快递员
  */
-function addUpdateCourier() {
+function addCourierByWechat() {
 	this.exec = (route, req, res) => {
 		add(req, res);
 	}
 }
 
 async function add(req, res) {
-	let courierObj = getCourierObj(req.body);
+	var data = req.body;
 	
-	const _courier = await courier.findOrCreate({
+	var objData = await getWechatLogin(data.code);
+	
+	if(!objData) {
+		res.send({
+			isSuccess: false,
+			result: 'code无效'
+		});
+		return;
+	}
+	if(data.name && data.siteID && data.phone) {
+		objData.name = data.name;
+		objData.siteID = data.siteID;
+		objData.phone = data.phone;
+	}
+	
+	let result = await courier.findOrCreate({
 		where: {
-			id: courierObj.id,
+			openid: objData.openid,
 		},
-		defaults: courierObj
+		defaults: objData
 	});
-	
-	if(!_courier[0]) {
+		
+	if(result[1]) {
+		result = result[0].dataValues;
+		var obj = {
+			id: result.id,
+			name: result.name,
+			siteID: result.siteID,
+			loginKey: result.loginKey
+		}
 		res.send({
 			isSuccess: true,
-			result: _courier
+			result: obj
 		});
 	} else {
+		result = result[0].dataValues;
+		objData.id = result.id;
+		objData.name = result.name;
+		objData.siteID = result.siteID
+		update(objData, res);
+	}
+
+}
+
+/*
+编辑快递员
+ */
+function updateCourier() {
+	this.exec = (route, req, res) => {
+		let courierObj = getCourierObj(req.body);
 		update(courierObj, res);
 	}
+}
+
+function update(courierObj, res) {
+	var obj = {
+		id: courierObj.id,
+		name: courierObj.name,
+		loginKey: courierObj.loginKey,
+		siteID: courierObj.siteID
+	}
+	courier.update(courierObj, {
+		where: {
+			id: courierObj.id
+		}
+	}).then(result => {
+		res.send({
+			isSuccess: true,
+			result: obj
+		});
+	});
 }
 
 /*
@@ -99,24 +157,10 @@ const del = (req, res) => {
 	})
 }
 
-/*
-编辑快递员
- */
-const update = (courierObj, res) => {
-	courier.update(courierObj, {
-		where: {
-			id: courierObj.id
-		}
-	}).then(result => {
-		res.send({
-			isSuccess: true,
-			result: result
-		});
-	});
-}
 
 module.exports = {
-	addUpdateCourier: new addUpdateCourier(),
+	updateCourier: new updateCourier(),
 	getCourier: new getCourier(),
-	delCourier: new delCourier()
+	delCourier: new delCourier(),
+	addCourierByWechat: new addCourierByWechat()
 }

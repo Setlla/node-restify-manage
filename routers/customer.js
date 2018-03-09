@@ -41,7 +41,7 @@ async function add(req, res) {
 		defaults: customerObj
 	});
 
-	if(!_customer[0]) {
+	if(_customer[1]) {
 		res.send({
 			isSuccess: true,
 			result: _customer

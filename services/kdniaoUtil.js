@@ -53,16 +53,6 @@ function encrypt(data, appkey) {
 	return b.toString('base64');
 }
 
-function getExpressInfo() {
-	this.exec = (route, req, res) => {
-		getExpress(req, res);
-	}
-}
-
-async function getExpress() {
-	
-}
-
 module.exports = {
 	getComputerByNum: new getComputerByNum()
 }

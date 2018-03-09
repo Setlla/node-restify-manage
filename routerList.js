@@ -13,7 +13,8 @@ router.addRoute('/getCompany', require('./routers/company').getCompany);
 router.addRoute('/delCompany', require('./routers/company').delCompany);
 
 //快递员
-router.addRoute('/addUpdateCourier', require('./routers/courier').addUpdateCourier);
+router.addRoute('/addCourierByWechat', require('./routers/courier').addCourierByWechat);
+router.addRoute('/updateCourier', require('./routers/courier').updateCourier);
 router.addRoute('/getCourier', require('./routers/courier').getCourier);
 router.addRoute('/delCourier', require('./routers/courier').delCourier);
 
@@ -26,6 +27,11 @@ router.addRoute('/delCustomer', require('./routers/customer').delCustomer);
 router.addRoute('/getListExpressDetail', require('./routers/express').getListExpressDetail);
 router.addRoute('/addExpress', require('./routers/express').addExpress);
 
+//第三方快递接口
 router.addRoute('/getComputerByNum', require('./services/kdniaoUtil').getComputerByNum);
+
+//微信接口
+//router.addRoute('/getWechatLogin', require('./services/wechatUtil').getWechatLogin);
+
 
 module.exports = router;

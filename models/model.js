@@ -44,7 +44,10 @@ const courier = sequelize.define('courier', {
 	city: Sequelize.STRING,
 	area: Sequelize.STRING,
 	siteID: Sequelize.INTEGER,
-	remarks: Sequelize.STRING
+	remarks: Sequelize.STRING,
+	openid: Sequelize.STRING,
+	loginKey: Sequelize.STRING,
+	sessionKey: Sequelize.STRING
 });
 
 //客户

@@ -93,7 +93,7 @@ async function add(req, res) {
 		defaults: expressObj
 	});
 
-	if(!_express[0]) {
+	if(_express[1]) {
 		res.send({
 			isSuccess: true,
 			result: _express
