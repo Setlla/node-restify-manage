@@ -74,7 +74,7 @@ const customer = sequelize.define('customer', {
 const express = sequelize.define('express', {
 	number: Sequelize.STRING,
 	customerID: Sequelize.INTEGER,
-	companyID: Sequelize.INTEGER,
+	companyName: Sequelize.STRING,
 	courierID: Sequelize.INTEGER,
 	siteID: Sequelize.INTEGER,
 	state: Sequelize.STRING,

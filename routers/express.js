@@ -6,7 +6,7 @@ const getExpressObj = (data) => {
 		id: data.id || null,
 		number: data.number,
 		customerID: data.customerID || null,
-		companyID: data.companyID || null,
+		companyName: data.companyName || null,
 		courierID: data.courierID || null,
 		siteID: data.siteID || null,		
 		state: data.state,
@@ -75,8 +75,9 @@ const listDetail = (req, res) => {
 }
 
 /*
-获取快递信息列表
+集散中心录入快递信息
  */
+
 function addExpress() {
 	this.exec = (route, req, res) => {
 		add(req, res);
@@ -85,32 +86,56 @@ function addExpress() {
 
 async function add(req, res) {
 	let expressObj = getExpressObj(req.body);
-
-	const _express = await customer.findOrCreate({
+	
+	const _express = await express.findOrCreate({
 		where: {
-			id: expressObj.id,
+			number: expressObj.number
 		},
 		defaults: expressObj
 	});
-
+	
 	if(_express[1]) {
+		//发送快递通知信息
+		
 		res.send({
 			isSuccess: true,
-			result: _express
+			result: expressObj
 		});
 	} else {
-		update(expressObj, res);
+		res.send({
+			isSuccess: false,
+			result: '该快速单号已扫描'
+		});
+	}
+}
+
+/**
+ * 拿到快递后发送信息模板   乡亲派【快递员昵称】已为您代取【快递公司名称】单号为【单号】的包裹，正在送往【对应服务站】。
+ 集散中心拿到快递之后的录入
+ * */
+function sendMessage() {
+	
+}
+
+
+/*
+ * 站点更新快递信息，更新当前快递负责人，客户签收快递
+ */
+function updateExpress() {
+	this.exec = (route, req, res) => {
+		update(req, res);
 	}
 }
 
 
 /*
-编辑快递信息
+更新快递信息
  */
-const update = (expressObj, res) => {
+const update = (req, res) => {
+	let expressObj = getExpressObj(req.body);
 	express.update(expressObj, {
 		where: {
-			id: expressObj.id
+			number: expressObj.number
 		}
 	}).then(result => {
 		res.send({
@@ -122,5 +147,6 @@ const update = (expressObj, res) => {
 
 module.exports = {
 	getListExpressDetail: new getListExpressDetail(),
-	addExpress: new addExpress()
+	addExpress: new addExpress(),
+	updateExpress: new updateExpress()
 }

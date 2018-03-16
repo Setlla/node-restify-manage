@@ -28,7 +28,10 @@ router.addRoute('/delCustomer', require('./routers/customer').delCustomer);
 
 //快递详情
 router.addRoute('/getListExpressDetail', require('./routers/express').getListExpressDetail);
+
+//快递录入，派发等（小程序）
 router.addRoute('/addExpress', require('./routers/express').addExpress);
+router.addRoute('/updateExpress', require('./routers/express').updateExpress);
 
 //第三方快递接口
 router.addRoute('/getComputerByNum', require('./services/kdniaoUtil').getComputerByNum);
