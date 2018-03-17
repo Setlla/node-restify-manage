@@ -30,9 +30,7 @@ const listDetail = (req, res) => {
 	let data = req.body;
 	if(data) {
 		if(data.number) {
-			params.number = {
-				$like: '%' + data.number + '%'
-			}
+			params.number = data.number
 		}
 		if(data.customeName) {
 			params.customeName = {
@@ -132,10 +130,48 @@ function updateExpress() {
 更新快递信息
  */
 const update = (req, res) => {
-	let expressObj = getExpressObj(req.body);
+	var data = req.body;
+	let expressObj = {
+		id: data.id,
+	    courierID: data.courierID,
+	    state: data.state
+	};
 	express.update(expressObj, {
 		where: {
-			number: expressObj.number
+			id: expressObj.id
+		}
+	}).then(result => {
+		res.send({
+			isSuccess: true,
+			result: result
+		});
+	});
+}
+
+
+/*
+ * 客户签收快递
+ */
+function signExpress() {
+	this.exec = (route, req, res) => {
+		sign(req, res);
+	}
+}
+
+
+/*
+签收
+ */
+const sign = (req, res) => {
+	var data = req.body;
+	let expressObj = {
+		id: data.id,
+	    state: data.state,
+	    receiverName: data.receiverName
+	};
+	express.update(expressObj, {
+		where: {
+			id: expressObj.id
 		}
 	}).then(result => {
 		res.send({
@@ -148,5 +184,6 @@ const update = (req, res) => {
 module.exports = {
 	getListExpressDetail: new getListExpressDetail(),
 	addExpress: new addExpress(),
-	updateExpress: new updateExpress()
+	updateExpress: new updateExpress(),
+	signExpress: new signExpress()
 }

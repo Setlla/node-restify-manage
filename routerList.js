@@ -32,6 +32,7 @@ router.addRoute('/getListExpressDetail', require('./routers/express').getListExp
 //快递录入，派发等（小程序）
 router.addRoute('/addExpress', require('./routers/express').addExpress);
 router.addRoute('/updateExpress', require('./routers/express').updateExpress);
+router.addRoute('/signExpress', require('./routers/express').signExpress);
 
 //第三方快递接口
 router.addRoute('/getComputerByNum', require('./services/kdniaoUtil').getComputerByNum);
