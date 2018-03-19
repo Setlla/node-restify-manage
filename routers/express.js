@@ -1,6 +1,6 @@
 const expressDetail = require("../models/model").expressDetail;
 const express = require("../models/model").express;
-//const sendMessage = require("../services/messageUtil").sendMessage;
+const sendMessage = require("../services/messageUtil").sendMessage;
 
 const getExpressObj = (data) => {
 	return {
@@ -100,22 +100,20 @@ async function add(req, res) {
 				number: expressObj.number
 			}
 		});
-//		_expressDetail = _expressDetail[0].values;
-		
-//		var phone = _expressDetail.customerMPhone;
-//		var templateParams = {
-//			expressName: _expressDetail.courierName,
-//			computerName: _expressDetail.companyName,
-//			number: _expressDetail.number,
-//			siteName: _expressDetail.siteName
-//		}
-//		sendMessage(phone, templateParams);
-		sendMessage('13142273277', {
-			expressName: 'test expressName',
-			computerName: 'test computerName',
-			number: 'test number',
-			siteName: 'test siteName'
-		});
+/**
+ * 拿到快递后发送信息模板   乡亲派【快递员昵称】已为您代取【快递公司名称】单号为【单号】的包裹，正在送往【对应服务站】。
+ 集散中心拿到快递之后的录入
+ * */
+		_expressDetail = _expressDetail[0].dataValues;
+		var phone = _expressDetail.customerMPhone;
+		var templateParams = JSON.stringify({
+			courierName: _expressDetail.courierName,
+			computerName: _expressDetail.companyName,
+			number: _expressDetail.number,
+			siteName: _expressDetail.siteName
+		})
+		sendMessage(phone, templateParams);
+
 		res.send({
 			isSuccess: true,
 			result: expressObj
@@ -128,13 +126,6 @@ async function add(req, res) {
 	}
 }
 
-/**
- * 拿到快递后发送信息模板   乡亲派【快递员昵称】已为您代取【快递公司名称】单号为【单号】的包裹，正在送往【对应服务站】。
- 集散中心拿到快递之后的录入
- * */
-function sendMessage() {
-	
-}
 
 
 /*
