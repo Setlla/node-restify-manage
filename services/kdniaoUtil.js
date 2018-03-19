@@ -4,14 +4,14 @@ const crypto = require('crypto');
 const EBusinessID = '1324027';
 const APIkey = '756f59c5-242a-4bcb-aa8e-fd41ca7d958a';
 
-function getComputerByNum() {
+function getCompanyByNum() {
 	this.exec = (route, req, res) => {
-		getComputer(req, res);
+		getCompany(req, res);
 	}
 }
 
 //通过快递单号获取公司名称
-async function getComputer(req, res) {
+async function getCompany(req, res) {
 	var requestData = {
 		'LogisticCode': req.body.LogisticCode
 	};
@@ -54,5 +54,5 @@ function encrypt(data, appkey) {
 }
 
 module.exports = {
-	getComputerByNum: new getComputerByNum()
+	getCompanyByNum: new getCompanyByNum()
 }

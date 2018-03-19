@@ -35,7 +35,7 @@ router.addRoute('/updateExpress', require('./routers/express').updateExpress);
 router.addRoute('/signExpress', require('./routers/express').signExpress);
 
 //第三方快递接口
-router.addRoute('/getComputerByNum', require('./services/kdniaoUtil').getComputerByNum);
+router.addRoute('/getCompanyByNum', require('./services/kdniaoUtil').getCompanyByNum);
 
 //微信接口
 //router.addRoute('/getWechatLogin', require('./services/wechatUtil').getWechatLogin);
