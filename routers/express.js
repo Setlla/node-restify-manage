@@ -1,5 +1,6 @@
 const expressDetail = require("../models/model").expressDetail;
 const express = require("../models/model").express;
+//const sendMessage = require("../services/messageUtil").sendMessage;
 
 const getExpressObj = (data) => {
 	return {
@@ -94,7 +95,27 @@ async function add(req, res) {
 	
 	if(_express[1]) {
 		//发送快递通知信息
+		var _expressDetail = await expressDetail.findAll({
+			where: {
+				number: expressObj.number
+			}
+		});
+//		_expressDetail = _expressDetail[0].values;
 		
+//		var phone = _expressDetail.customerMPhone;
+//		var templateParams = {
+//			expressName: _expressDetail.courierName,
+//			computerName: _expressDetail.companyName,
+//			number: _expressDetail.number,
+//			siteName: _expressDetail.siteName
+//		}
+//		sendMessage(phone, templateParams);
+		sendMessage('13142273277', {
+			expressName: 'test expressName',
+			computerName: 'test computerName',
+			number: 'test number',
+			siteName: 'test siteName'
+		});
 		res.send({
 			isSuccess: true,
 			result: expressObj

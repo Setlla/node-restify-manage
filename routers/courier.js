@@ -43,6 +43,12 @@ async function add(req, res) {
 		objData.name = data.name;
 		objData.siteID = data.siteID;
 		objData.phone = data.phone;
+	}else {
+		res.send({
+			isSuccess: false,
+			result: '注册信息不完整'
+		})
+		return;
 	}
 
 	let result = await courier.findOrCreate({
@@ -101,7 +107,7 @@ async function isRegister(req, res) {
 			openid: objData.openid
 		}
 	}).then(result => {
-		if(result[0].dataValues) {
+		if(result.length) {
 			result = result[0].dataValues;
 			var obj = {
 				id: result.id,

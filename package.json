@@ -14,10 +14,11 @@
   },
   "license": "ISC",
   "dependencies": {
+    "@alicloud/sms-sdk": "^1.0.8",
+    "axios": "^0.17.1",
     "mysql": "^2.0.0",
     "mysql2": "^1.0.0",
     "restify": "^5.0.0",
-    "sequelize": "^4.0.0",
-    "axios": "^0.17.1"
+    "sequelize": "^4.0.0"
   }
 }
