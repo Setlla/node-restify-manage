@@ -108,7 +108,7 @@ async function add(req, res) {
 		var phone = _expressDetail.customerMPhone;
 		var templateParams = JSON.stringify({
 			courierName: _expressDetail.courierName,
-			computerName: _expressDetail.companyName,
+			companyName: _expressDetail.companyName,
 			number: _expressDetail.number,
 			siteName: _expressDetail.siteName
 		})

@@ -11,7 +11,7 @@ function sendMessage(phone, templateParams) {
 	smsClient.sendSMS({
 	    PhoneNumbers: phone,
 	    SignName: '乡亲派',
-	    TemplateCode: 'SMS_127156857',
+	    TemplateCode: 'SMS_127167636',
 	    TemplateParam: templateParams
 	}).then(function (res) {
 	    let {Code}=res
